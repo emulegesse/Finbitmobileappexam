@@ -48,13 +48,7 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         homeViewHolder.cardViewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                App.getNotificationBox().put(notification);
-//                if( mDatum.get(position).getNotificationCartId()!=null){
-//                    Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
-//                    intent.putExtra("NOTIFICATION", (Serializable) mDatum.get(position));
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    v.getContext().startActivity(intent);
-//                }
+
             }
         });
 
