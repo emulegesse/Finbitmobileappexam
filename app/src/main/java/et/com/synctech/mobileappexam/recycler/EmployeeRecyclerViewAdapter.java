@@ -14,6 +14,7 @@ import java.util.List;
 
 import et.com.synctech.mobileappexam.R;
 import et.com.synctech.mobileappexam.dto.Datum;
+import et.com.synctech.mobileappexam.utils.Util;
 
 public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRecyclerViewAdapter.homeViewHolder> {
 
@@ -51,6 +52,9 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
 
             }
         });
+
+        Util.loadRoundedImagePath("https://cdn.shopify.com/s/files/1/0877/4986/products/001_235_Coral_shop_hover_2x_e8dcf78f-e483-4a4f-86bf-48eeb783634a.jpg?v=1580431943",homeViewHolder.imageViewEmployeeProfilePic);
+//        Util.loadRoundedImagePath("https://cdn.shopify.com/s/files/1/0877/4986/products/001_235_Coral_shop_hover_2x_e8dcf78f-e483-4a4f-86bf-48eeb783634a.jpg?v=1580431943",homeViewHolder.imageViewEmployeeProfilePic);
 
     }
 
