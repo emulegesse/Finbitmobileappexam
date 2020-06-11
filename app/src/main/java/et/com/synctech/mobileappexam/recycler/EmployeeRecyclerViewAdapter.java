@@ -60,8 +60,6 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
 
 
         homeViewHolder.textViewEmployeeName.setText(mEmployee.get(position).getEmployeeName());
-        homeViewHolder.textViewEmployeeAge.setText(mEmployee.get(position).getEmployeeAge());
-        homeViewHolder.textViewEmployeeSalary.setText(mEmployee.get(position).getEmployeeSalary());
         homeViewHolder.cardViewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +98,6 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
     public static class homeViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewEmployeeName;
-        private TextView textViewEmployeeAge;
-        private TextView textViewEmployeeSalary;
         private ImageView imageViewEmployeeProfilePic;
         private CardView cardViewEmployee;
         MaterialRippleLayout ripple;
@@ -111,8 +107,6 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
             super(employeeView);
 
             textViewEmployeeName = (TextView) employeeView.findViewById(R.id.txt_employee_name);
-            textViewEmployeeAge = (TextView) employeeView.findViewById(R.id.txt_employee_age);
-            textViewEmployeeSalary = (TextView) employeeView.findViewById(R.id.txt_employee_salary);
             imageViewEmployeeProfilePic = (ImageView) employeeView.findViewById(R.id.img_employee_profile_pic);
             cardViewEmployee = (CardView) employeeView.findViewById(R.id.card_view_employee);
 

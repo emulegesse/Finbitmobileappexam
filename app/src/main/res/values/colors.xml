@@ -3,6 +3,5 @@
     <color name="colorPrimary">#111111</color>
     <color name="colorPrimaryDark">#222222</color>
     <color name="colorAccent">#DCDCDC</color>
-    <color name="colorTextView">#A7AFB2</color>
-    <color name="black_light">#111111</color>
+    <color name="colorDarkGray">#A7AFB2</color>
 </resources>

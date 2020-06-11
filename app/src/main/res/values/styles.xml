@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="textViewStyle" >
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 </resources>
