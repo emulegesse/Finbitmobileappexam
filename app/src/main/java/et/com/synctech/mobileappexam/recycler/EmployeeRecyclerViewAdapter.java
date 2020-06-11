@@ -28,14 +28,8 @@ import et.com.synctech.mobileappexam.utils.ImageUtil;
 public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRecyclerViewAdapter.homeViewHolder> {
 
 
-    private Context mContext;
     public List<Employee> mEmployee;
-
-
-    public void animate(RecyclerView.ViewHolder viewHolder) {
-        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(mContext, R.anim.bounce_interpolator);
-        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
-    }
+    private Context mContext;
 
 
     public EmployeeRecyclerViewAdapter(Context mContext, List<Employee> employeeList) {
@@ -43,6 +37,10 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         this.mEmployee = employeeList;
     }
 
+    public void animate(RecyclerView.ViewHolder viewHolder) {
+        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(mContext, R.anim.bounce_interpolator);
+        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
+    }
 
     @Override
     public homeViewHolder onCreateViewHolder(ViewGroup parent, int i) {
@@ -58,17 +56,15 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         animate(homeViewHolder);
 
 
-
         homeViewHolder.textViewEmployeeName.setText(mEmployee.get(position).getEmployeeName());
         homeViewHolder.cardViewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EmployeeDetailActivity.class);
-                intent.putExtra("EMPLOYEE", (Serializable) mEmployee.get(position));
+                intent.putExtra("EMPLOYEE", mEmployee.get(position));
                 v.getContext().startActivity(intent);
             }
         });
-
 
 
         homeViewHolder.ripple.setOnClickListener(new View.OnClickListener() {
@@ -77,14 +73,14 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), EmployeeDetailActivity.class);
-                intent.putExtra("EMPLOYEE", (Serializable) mEmployee.get(position));
+                intent.putExtra("EMPLOYEE", mEmployee.get(position));
                 v.getContext().startActivity(intent);
 
             }
 
         });
 
-        ImageUtil.loadRoundedImagePath(mEmployee.get(position).getProfileImage(),homeViewHolder.imageViewEmployeeProfilePic,50L);
+        ImageUtil.loadRoundedImagePath(mEmployee.get(position).getProfileImage(), homeViewHolder.imageViewEmployeeProfilePic, 50L);
 
     }
 
@@ -94,26 +90,22 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
     }
 
 
-
     public static class homeViewHolder extends RecyclerView.ViewHolder {
 
+        MaterialRippleLayout ripple;
         private TextView textViewEmployeeName;
         private ImageView imageViewEmployeeProfilePic;
         private CardView cardViewEmployee;
-        MaterialRippleLayout ripple;
 
 
         public homeViewHolder(View employeeView) {
             super(employeeView);
 
-            textViewEmployeeName = (TextView) employeeView.findViewById(R.id.txt_employee_name);
-            imageViewEmployeeProfilePic = (ImageView) employeeView.findViewById(R.id.img_employee_profile_pic);
-            cardViewEmployee = (CardView) employeeView.findViewById(R.id.card_view_employee);
+            textViewEmployeeName = employeeView.findViewById(R.id.txt_employee_name);
+            imageViewEmployeeProfilePic = employeeView.findViewById(R.id.img_employee_profile_pic);
+            cardViewEmployee = employeeView.findViewById(R.id.card_view_employee);
 
-            ripple = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-
-
-
+            ripple = itemView.findViewById(R.id.ripple);
 
 
         }

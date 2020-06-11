@@ -7,7 +7,7 @@
         android:drawable="@drawable/elipse_dark" />
     <item android:state_pressed="true"
         android:state_enabled="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDarker"
         android:drawable="@drawable/elipse_nobackground_border"
         />
 </selector>
