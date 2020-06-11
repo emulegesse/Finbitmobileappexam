@@ -2,12 +2,15 @@ package et.com.synctech.mobileappexam.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
+import com.orm.dsl.Unique;
 
-public class Datum {
+public class Datum extends SugarRecord {
 
-    @SerializedName("id")
+    @SerializedName("idEmployee")
     @Expose
-    private String id;
+    @Unique
+    private String idEmployee;
     @SerializedName("employee_name")
     @Expose
     private String employeeName;
@@ -30,25 +33,25 @@ public class Datum {
     /**
      * @param employeeName
      * @param employeeAge
-     * @param id
+     * @param idEmployee
      * @param profileImage
      * @param employeeSalary
      */
-    public Datum(String id, String employeeName, String employeeSalary, String employeeAge, String profileImage) {
+    public Datum(String idEmployee, String employeeName, String employeeSalary, String employeeAge, String profileImage) {
         super();
-        this.id = id;
+        this.idEmployee = idEmployee;
         this.employeeName = employeeName;
         this.employeeSalary = employeeSalary;
         this.employeeAge = employeeAge;
         this.profileImage = profileImage;
     }
 
-    public String getId() {
-        return id;
+    public String getIdEmployee() {
+        return idEmployee;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdEmployee(String idEmployee) {
+        this.idEmployee = idEmployee;
     }
 
     public String getEmployeeName() {

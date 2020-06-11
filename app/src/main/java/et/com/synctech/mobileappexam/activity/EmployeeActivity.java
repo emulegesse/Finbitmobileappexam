@@ -1,15 +1,18 @@
 package et.com.synctech.mobileappexam.activity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.util.Log;
-
-import java.util.List;
+import com.orm.SugarRecord;
 
 import et.com.synctech.mobileappexam.R;
 import et.com.synctech.mobileappexam.dto.Datum;
@@ -25,29 +28,30 @@ public class EmployeeActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewEmployee;
     EmployeeRecyclerViewAdapter employeeRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
-        recyclerViewEmployee = (RecyclerView)findViewById(R.id.recyler_view_employees);
+        recyclerViewEmployee = findViewById(R.id.recyler_view_employees);
 
-        fetchEmployeeData(this);
+        fetchEmployeeData();
 
     }
 
-    private void setRecyclerView(List<Datum> datumList){
+    private void setRecyclerView() {
 
-        employeeRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(getApplicationContext(),datumList);
-        recyclerViewEmployee.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        employeeRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(getApplicationContext(), Datum.listAll(Datum.class));
+        recyclerViewEmployee.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerViewEmployee.setAdapter(employeeRecyclerViewAdapter);
         employeeRecyclerViewAdapter.notifyDataSetChanged();
 
     }
 
-    public  void fetchEmployeeData(final Activity activity) {
+    public void fetchEmployeeData() {
 
         final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(activity);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait....");
         progressDialog.setTitle("Loading");
         progressDialog.show();
@@ -60,29 +64,34 @@ public class EmployeeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<EmployeeResponseDto> call, Response<EmployeeResponseDto> response) {
                         if (response.isSuccessful()) {
+                            if (response.body() != null && response.body().getData() != null) {
+                                SugarRecord.saveInTx(response.body().getData()); } }
 
-                            Log.d("AAAAAAAAAAAAA", "response is succ from api" + response.body());
-
-                            for (Datum datum:response.body().getData()){
-                                Log.d("AAAAAAAAAAAAA", "response "+datum.getEmployeeName() );
-
-                            }
-                            setRecyclerView(response.body().getData());
-
-                            progressDialog.dismiss();
-
-
-                        } else {
-                            Log.d("AAAAAAAAAAAAA", "response not succesfulllll from ai" + response.body());
-                            progressDialog.dismiss();
-                        }
+                        progressDialog.dismiss();
+                        setRecyclerView();
                     }
 
                     @Override
                     public void onFailure(Call<EmployeeResponseDto> call, Throwable t) {
                         progressDialog.dismiss();
+
+                        if(Datum.count(Datum.class)!=0){
+                            setRecyclerView();
+                        }else {
+
+                        }
+
                     }
                 });
+
+
+    }
+
+    private static boolean checkConnection(Activity activity) {
+        ConnectivityManager manager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo connection = manager.getActiveNetworkInfo();
+        return connection != null && connection.isConnectedOrConnecting();
+
     }
 
 
