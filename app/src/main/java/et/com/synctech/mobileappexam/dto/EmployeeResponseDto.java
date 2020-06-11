@@ -12,7 +12,7 @@ public class EmployeeResponseDto {
     private String status;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<Employee> data = null;
 
     /**
      * No args constructor for use in serialization
@@ -24,7 +24,7 @@ public class EmployeeResponseDto {
      * @param data
      * @param status
      */
-    public EmployeeResponseDto(String status, List<Datum> data) {
+    public EmployeeResponseDto(String status, List<Employee> data) {
         super();
         this.status = status;
         this.data = data;
@@ -38,11 +38,11 @@ public class EmployeeResponseDto {
         this.status = status;
     }
 
-    public List<Datum> getData() {
+    public List<Employee> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<Employee> data) {
         this.data = data;
     }
 

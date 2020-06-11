@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,19 +18,25 @@ import java.util.List;
 
 import et.com.synctech.mobileappexam.R;
 import et.com.synctech.mobileappexam.activity.EmployeeDetailActivity;
-import et.com.synctech.mobileappexam.dto.Datum;
+import et.com.synctech.mobileappexam.dto.Employee;
 import et.com.synctech.mobileappexam.utils.ImageUtil;
 
 public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRecyclerViewAdapter.homeViewHolder> {
 
 
     private Context mContext;
-    private List<Datum> mDatum;
+    private List<Employee> mEmployee;
 
 
-    public EmployeeRecyclerViewAdapter(Context mContext, List<Datum> datumList) {
+    public void animate(RecyclerView.ViewHolder viewHolder) {
+        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(mContext, R.anim.bounce_interpolator);
+        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
+    }
+
+
+    public EmployeeRecyclerViewAdapter(Context mContext, List<Employee> employeeList) {
         this.mContext = mContext;
-        this.mDatum = datumList;
+        this.mEmployee = employeeList;
     }
 
 
@@ -43,28 +51,29 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
     @Override
     public void onBindViewHolder(homeViewHolder homeViewHolder, final int position) {
 
+        animate(homeViewHolder);
 
 
 
-        homeViewHolder.textViewEmployeeName.setText(mDatum.get(position).getEmployeeName());
-        homeViewHolder.textViewEmployeeAge.setText(mDatum.get(position).getEmployeeAge());
-        homeViewHolder.textViewEmployeeSalary.setText(mDatum.get(position).getEmployeeSalary());
+        homeViewHolder.textViewEmployeeName.setText(mEmployee.get(position).getEmployeeName());
+        homeViewHolder.textViewEmployeeAge.setText(mEmployee.get(position).getEmployeeAge());
+        homeViewHolder.textViewEmployeeSalary.setText(mEmployee.get(position).getEmployeeSalary());
         homeViewHolder.cardViewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EmployeeDetailActivity.class);
-                intent.putExtra("EMPLOYEE", (Serializable) mDatum.get(position));
+                intent.putExtra("EMPLOYEE", (Serializable) mEmployee.get(position));
                 v.getContext().startActivity(intent);
             }
         });
 
-        ImageUtil.loadRoundedImagePath(mDatum.get(position).getProfileImage(),homeViewHolder.imageViewEmployeeProfilePic,50L);
+        ImageUtil.loadRoundedImagePath(mEmployee.get(position).getProfileImage(),homeViewHolder.imageViewEmployeeProfilePic,50L);
 
     }
 
     @Override
     public int getItemCount() {
-        return mDatum.size();
+        return mEmployee.size();
     }
 
 

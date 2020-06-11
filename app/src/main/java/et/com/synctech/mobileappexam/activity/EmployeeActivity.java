@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.orm.SugarRecord;
 
 import et.com.synctech.mobileappexam.R;
-import et.com.synctech.mobileappexam.dto.Datum;
+import et.com.synctech.mobileappexam.dto.Employee;
 import et.com.synctech.mobileappexam.dto.EmployeeResponseDto;
 import et.com.synctech.mobileappexam.recycler.EmployeeRecyclerViewAdapter;
 import et.com.synctech.mobileappexam.service.ApiService;
@@ -47,7 +47,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
     private void setRecyclerView() {
 
-        employeeRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(getApplicationContext(), Datum.listAll(Datum.class));
+        employeeRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(getApplicationContext(), Employee.listAll(Employee.class));
         recyclerViewEmployee.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
         recyclerViewEmployee.setAdapter(employeeRecyclerViewAdapter);
         employeeRecyclerViewAdapter.notifyDataSetChanged();
@@ -83,7 +83,7 @@ public class EmployeeActivity extends AppCompatActivity {
                     public void onFailure(Call<EmployeeResponseDto> call, Throwable t) {
                         progressDialog.dismiss();
 
-                        if (Datum.count(Datum.class) != 0) {
+                        if (Employee.count(Employee.class) != 0) {
                             setRecyclerView();
                         } else if(!checkConnection(EmployeeActivity.this)) {
                             startActivity(new Intent(EmployeeActivity.this, NotConnectedActivity.class));

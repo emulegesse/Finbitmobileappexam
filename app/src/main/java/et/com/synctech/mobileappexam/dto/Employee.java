@@ -7,7 +7,7 @@ import com.orm.dsl.Unique;
 
 import java.io.Serializable;
 
-public class Datum extends SugarRecord implements Serializable {
+public class Employee extends SugarRecord implements Serializable {
 
     @SerializedName("idEmployee")
     @Expose
@@ -29,7 +29,7 @@ public class Datum extends SugarRecord implements Serializable {
     /**
      * No args constructor for use in serialization
      */
-    public Datum() {
+    public Employee() {
     }
 
     /**
@@ -39,7 +39,7 @@ public class Datum extends SugarRecord implements Serializable {
      * @param profileImage
      * @param employeeSalary
      */
-    public Datum(String idEmployee, String employeeName, String employeeSalary, String employeeAge, String profileImage) {
+    public Employee(String idEmployee, String employeeName, String employeeSalary, String employeeAge, String profileImage) {
         super();
         this.idEmployee = idEmployee;
         this.employeeName = employeeName;

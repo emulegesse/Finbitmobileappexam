@@ -8,14 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import et.com.synctech.mobileappexam.R;
-import et.com.synctech.mobileappexam.dto.Datum;
+import et.com.synctech.mobileappexam.dto.Employee;
 import et.com.synctech.mobileappexam.utils.ImageUtil;
 
 import static et.com.synctech.mobileappexam.R.*;
 
 public class EmployeeDetailActivity extends AppCompatActivity {
 
-    Datum datum ;
+    Employee employee;
 
     private TextView textViewEmployeeName;
     private TextView textViewEmployeeAge;
@@ -37,19 +37,19 @@ public class EmployeeDetailActivity extends AppCompatActivity {
         textViewEmployeeAgeLabel = (TextView) findViewById(id.txt_employee_age_label);
         textViewEmployeeSalaryLabel = (TextView) findViewById(id.txt_employee_salary_label);
 
-        datum = (Datum) getIntent().getExtras().getSerializable("EMPLOYEE");
+        employee = (Employee) getIntent().getExtras().getSerializable("EMPLOYEE");
 
 
-        if(datum!=null){
-            textViewEmployeeName.setText(datum.getEmployeeName());
-            ImageUtil.loadRoundedImagePath(datum.getProfileImage(),imageViewEmployeeProfilePic,110L);
+        if(employee !=null){
+            textViewEmployeeName.setText(employee.getEmployeeName());
+            ImageUtil.loadRoundedImagePath(employee.getProfileImage(),imageViewEmployeeProfilePic,110L);
 
-            if(!datum.getEmployeeAge().equals("")) {
-                textViewEmployeeAge.setText(datum.getEmployeeAge());
+            if(!employee.getEmployeeAge().equals("")) {
+                textViewEmployeeAge.setText(employee.getEmployeeAge());
                 textViewEmployeeAgeLabel.setText(R.string.age_label);  }
 
-            if(!datum.getEmployeeSalary().equals("")) {
-                textViewEmployeeSalary.setText(datum.getEmployeeSalary());
+            if(!employee.getEmployeeSalary().equals("")) {
+                textViewEmployeeSalary.setText(employee.getEmployeeSalary());
                 textViewEmployeeSalaryLabel.setText(R.string.salary_label);  }
 
         }
