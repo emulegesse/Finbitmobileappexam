@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">MobileAppExam</string>
+    <string name="app_name">EmployeeApp</string>
     <string name="check_your_connection">Please Check Your Connection and Try Again!!</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="wait_msg">Please wait....</string>
     <string name="loading">Loading</string>
     <string name="retry">Retry</string>
+    <string name="age_label">Age</string>
+    <string name="salary_label">Salary</string>
 </resources>

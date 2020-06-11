@@ -1,6 +1,7 @@
 package et.com.synctech.mobileappexam.recycler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import et.com.synctech.mobileappexam.R;
+import et.com.synctech.mobileappexam.activity.EmployeeDetailActivity;
 import et.com.synctech.mobileappexam.dto.Datum;
-import et.com.synctech.mobileappexam.utils.Util;
+import et.com.synctech.mobileappexam.utils.ImageUtil;
 
 public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRecyclerViewAdapter.homeViewHolder> {
 
@@ -49,12 +52,13 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         homeViewHolder.cardViewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), EmployeeDetailActivity.class);
+                intent.putExtra("EMPLOYEE", (Serializable) mDatum.get(position));
+                v.getContext().startActivity(intent);
             }
         });
 
-        Util.loadRoundedImagePath("https://cdn.shopify.com/s/files/1/0877/4986/products/001_235_Coral_shop_hover_2x_e8dcf78f-e483-4a4f-86bf-48eeb783634a.jpg?v=1580431943",homeViewHolder.imageViewEmployeeProfilePic);
-//        Util.loadRoundedImagePath("https://cdn.shopify.com/s/files/1/0877/4986/products/001_235_Coral_shop_hover_2x_e8dcf78f-e483-4a4f-86bf-48eeb783634a.jpg?v=1580431943",homeViewHolder.imageViewEmployeeProfilePic);
+        ImageUtil.loadRoundedImagePath(mDatum.get(position).getProfileImage(),homeViewHolder.imageViewEmployeeProfilePic,50L);
 
     }
 
@@ -74,14 +78,14 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         private CardView cardViewEmployee;
 
 
-        public homeViewHolder(View itemView) {
-            super(itemView);
+        public homeViewHolder(View employeeView) {
+            super(employeeView);
 
-            textViewEmployeeName = (TextView) itemView.findViewById(R.id.txt_employee_name);
-            textViewEmployeeAge = (TextView) itemView.findViewById(R.id.txt_employee_age);
-            textViewEmployeeSalary = (TextView) itemView.findViewById(R.id.txt_employee_salary);
-            imageViewEmployeeProfilePic = (ImageView) itemView.findViewById(R.id.img_employee_profile_pic);
-            cardViewEmployee = (CardView) itemView.findViewById(R.id.card_view_employee);
+            textViewEmployeeName = (TextView) employeeView.findViewById(R.id.txt_employee_name);
+            textViewEmployeeAge = (TextView) employeeView.findViewById(R.id.txt_employee_age);
+            textViewEmployeeSalary = (TextView) employeeView.findViewById(R.id.txt_employee_salary);
+            imageViewEmployeeProfilePic = (ImageView) employeeView.findViewById(R.id.img_employee_profile_pic);
+            cardViewEmployee = (CardView) employeeView.findViewById(R.id.card_view_employee);
         }
 
     }

@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 import com.orm.dsl.Unique;
 
-public class Datum extends SugarRecord {
+import java.io.Serializable;
+
+public class Datum extends SugarRecord implements Serializable {
 
     @SerializedName("idEmployee")
     @Expose
