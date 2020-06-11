@@ -2,6 +2,7 @@ package et.com.synctech.mobileappexam.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,7 +29,7 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
 
 
     private Context mContext;
-    private List<Employee> mEmployee;
+    public List<Employee> mEmployee;
 
 
     public void animate(RecyclerView.ViewHolder viewHolder) {
@@ -67,6 +71,21 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
             }
         });
 
+
+
+        homeViewHolder.ripple.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(v.getContext(), EmployeeDetailActivity.class);
+                intent.putExtra("EMPLOYEE", (Serializable) mEmployee.get(position));
+                v.getContext().startActivity(intent);
+
+            }
+
+        });
+
         ImageUtil.loadRoundedImagePath(mEmployee.get(position).getProfileImage(),homeViewHolder.imageViewEmployeeProfilePic,50L);
 
     }
@@ -85,6 +104,7 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
         private TextView textViewEmployeeSalary;
         private ImageView imageViewEmployeeProfilePic;
         private CardView cardViewEmployee;
+        MaterialRippleLayout ripple;
 
 
         public homeViewHolder(View employeeView) {
@@ -95,6 +115,13 @@ public class EmployeeRecyclerViewAdapter extends RecyclerView.Adapter<EmployeeRe
             textViewEmployeeSalary = (TextView) employeeView.findViewById(R.id.txt_employee_salary);
             imageViewEmployeeProfilePic = (ImageView) employeeView.findViewById(R.id.img_employee_profile_pic);
             cardViewEmployee = (CardView) employeeView.findViewById(R.id.card_view_employee);
+
+            ripple = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+
+
+
+
+
         }
 
     }
